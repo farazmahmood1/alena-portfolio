@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Keyshape -->
+<svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" viewBox="0 0 50 80" style="white-space: pre;">
+    <defs>
+        <radialGradient id="Gradient-0" cx="29.141" cy="5.443" r="42.644" fx="29.141" fy="5.443" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1 0 0 1.648 0 -3.992)">
+            <stop offset="0" stop-color="#fe2a00" stop-opacity="0"/>
+            <stop offset="0.212" stop-color="#fe2a00" stop-opacity="0.01"/>
+            <stop offset="0.347" stop-color="#fe2a00" stop-opacity="0.05"/>
+            <stop offset="0.461" stop-color="#fe2a00" stop-opacity="0.1"/>
+            <stop offset="0.564" stop-color="#fe2a00" stop-opacity="0.19"/>
+            <stop offset="0.658" stop-color="#fe2a00" stop-opacity="0.29"/>
+            <stop offset="0.746" stop-color="#fe2a00" stop-opacity="0.42"/>
+            <stop offset="0.83" stop-color="#fe2a00" stop-opacity="0.58"/>
+            <stop offset="0.911" stop-color="#fe2a00" stop-opacity="0.76"/>
+            <stop offset="0.986" stop-color="#fe2a00" stop-opacity="0.96"/>
+            <stop offset="1" stop-color="#fe2a00"/>
+        </radialGradient>
+        <linearGradient id="Gradient-1" x1="43.061" y1="26.133" x2="5.602" y2="55.16" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#fe2a00" stop-opacity="0"/>
+            <stop offset="0.212" stop-color="#fe2a00" stop-opacity="0.01"/>
+            <stop offset="0.347" stop-color="#fe2a00" stop-opacity="0.05"/>
+            <stop offset="0.461" stop-color="#fe2a00" stop-opacity="0.1"/>
+            <stop offset="0.564" stop-color="#fe2a00" stop-opacity="0.19"/>
+            <stop offset="0.658" stop-color="#fe2a00" stop-opacity="0.29"/>
+            <stop offset="0.746" stop-color="#fe2a00" stop-opacity="0.42"/>
+            <stop offset="0.83" stop-color="#fe2a00" stop-opacity="0.58"/>
+            <stop offset="0.911" stop-color="#fe2a00" stop-opacity="0.76"/>
+            <stop offset="0.986" stop-color="#fe2a00" stop-opacity="0.96"/>
+            <stop offset="1" stop-color="#fe2a00"/>
+        </linearGradient>
+        <linearGradient id="Gradient-2" x1="1.428" y1="13.83" x2="10.413" y2="-13.41" gradientUnits="userSpaceOnUse">
+            <stop offset="0.206" stop-color="#fe2a00"/>
+            <stop offset="0.208" stop-color="#fe2b01" stop-opacity="0.99"/>
+            <stop offset="0.304" stop-color="#fe5c3c" stop-opacity="0.76"/>
+            <stop offset="0.402" stop-color="#fe8770" stop-opacity="0.56"/>
+            <stop offset="0.501" stop-color="#feac9b" stop-opacity="0.39"/>
+            <stop offset="0.599" stop-color="#fecabf" stop-opacity="0.25"/>
+            <stop offset="0.698" stop-color="#fee1db" stop-opacity="0.14"/>
+            <stop offset="0.797" stop-color="#fef1ef" stop-opacity="0.06"/>
+            <stop offset="0.898" stop-color="#fefbfb" stop-opacity="0.01"/>
+            <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+        </linearGradient>
+    </defs>
+    <style>
+@keyframes a0_t { 0% { transform: translate(21.742726px,11.064459px); animation-timing-function: cubic-bezier(0.5,0,0.5,1); } 100% { transform: translate(21.742726px,69.568624px); } }
+@keyframes a0_o { 0% { opacity: 1; } 50% { opacity: 1; animation-timing-function: cubic-bezier(0.5,0,0.5,1); } 90% { opacity: 0; } 100% { opacity: 0; } }
+    </style>
+    <g id="a" transform="translate(25,39.987) translate(-25,-39.987)">
+        <path class="f" d="M25.084,0L24.916,0C11.155,0,0,10.199,0,22.78L0,56.497C0,68.804,11.464,79.974,24.923,79.974C39.442,79.974,50,70.133,50,57.143L50,22.78C50,10.199,38.845,0,25.084,0Z" stroke-width="0px" fill="url(#Gradient-0)" stroke-opacity="1" transform="translate(25,39.987) translate(-25,-39.987)"/>
+        <path class="f" d="M25.084,0L24.916,0C11.155,0,0,10.199,0,22.78L0,56.497C0,68.804,11.464,79.974,24.923,79.974C39.442,79.974,50,70.133,50,57.143L50,22.78C50,10.199,38.845,0,25.084,0Z" stroke-width="0px" fill="url(#Gradient-0)" stroke-opacity="1" transform="translate(25,39.987) translate(-25,-39.987)"/>
+        <path class="g" d="M25.084,0L24.916,0C11.155,0,0,10.199,0,22.78L0,56.497C0,68.804,11.464,79.974,24.923,79.974C39.442,79.974,50,70.133,50,57.143L50,22.78C50,10.199,38.845,0,25.084,0Z" fill="url(#Gradient-1)" stroke-width="0px" stroke-opacity="1" transform="translate(25,39.987) translate(-25,-39.987)"/>
+    </g>
+    <g id="d" transform="translate(25,8.56357) translate(-25,-14.2475)">
+        <rect class="h" width="6.51455" height="13.8971" rx="3.516" ry="3.516" fill="url(#Gradient-2)" stroke-width="0px" opacity="1" stroke="none" stroke-opacity="1" fill-opacity="1" fill-rule="nonzero" transform="translate(25,18.013) translate(-3.25727,-6.94857)" style="animation: 2s linear infinite both a0_t, 2s linear infinite both a0_o;"/>
+    </g>
+</svg>

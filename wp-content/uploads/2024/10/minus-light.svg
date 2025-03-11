@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 20.2 2.8">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#Unbenannter_Verlauf_38);
+      }
+    </style>
+    <linearGradient id="Unbenannter_Verlauf_38" data-name="Unbenannter Verlauf 38" x1="-110.6" y1="154.9" x2="-139.6" y2="128.2" gradientTransform="translate(-107.7 -146.9) rotate(-180) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset=".2" stop-color="#dddcd7"></stop>
+      <stop offset=".2" stop-color="#dddcd7" stop-opacity=".9"></stop>
+      <stop offset=".3" stop-color="#dddcd7" stop-opacity=".6"></stop>
+      <stop offset=".4" stop-color="#dddcd7" stop-opacity=".4"></stop>
+      <stop offset=".4" stop-color="#dddcd7" stop-opacity=".3"></stop>
+      <stop offset=".5" stop-color="#dddcd7" stop-opacity=".2"></stop>
+      <stop offset=".6" stop-color="#dddcd7" stop-opacity="0"></stop>
+      <stop offset=".7" stop-color="#dddcd7" stop-opacity="0"></stop>
+      <stop offset=".7" stop-color="#fff" stop-opacity="0"></stop>
+    </linearGradient>
+  </defs>
+  <g>
+    <g id="b">
+      <g id="c">
+        <path class="cls-1" d="M1,2.8h17.8c.8,0,1.4-.6,1.4-1.4S19.8.2,19.2,0H1.4c-.8,0-1.4.6-1.4,1.4,0,.6.4,1.2,1,1.4Z"></path>
+      </g>
+    </g>
+  </g>
+</svg>
