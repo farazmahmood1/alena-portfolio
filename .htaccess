@@ -1,0 +1,35 @@
+# Codilated — static site config
+# Serves every page without its .html extension.
+
+Options -MultiViews
+RewriteEngine On
+
+# 1. Redirect any explicit .html request to the clean URL (301, preserves query string)
+RewriteCond %{THE_REQUEST} \s/+(.*?)\.html[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L,NE]
+
+# 2. Redirect /index and /path/index to the directory root
+RewriteCond %{THE_REQUEST} \s/+(.*?)index[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L,NE]
+
+# 3. Internally serve foo.html for a request to /foo
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.+?)/?$ $1.html [L]
+
+ErrorDocument 404 /404.html
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
