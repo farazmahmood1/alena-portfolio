@@ -28,12 +28,603 @@ html .semplice-navbar.headroom--not-top {
 	box-shadow: inset 0 -1px 0 rgba(245, 245, 246, 0.08);
 }
 
-/* The full-screen mobile menu has its own backdrop. */
-html body.open-menu .semplice-navbar {
+/* Right side of the bar: "Let's talk" link, divider, menu toggle. */
+.semplice-navbar .navbar-inner {
+	display: flex;
+	align-items: center;
+}
+
+.site-header-actions {
+	display: flex;
+	align-items: center;
+	gap: 1.4rem;
+	margin-left: auto;
+}
+
+.site-header-cta {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	padding-bottom: 0.15rem;
+	border-bottom: 1px solid rgba(245, 245, 246, 0.45);
+	color: #f5f5f6 !important;
+	font-family: "PPMori-Medium", sans-serif;
+	font-size: 1rem;
+	line-height: 1.2;
+	text-decoration: none;
+	transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.site-header-cta svg {
+	transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.site-header-cta:hover,
+.site-header-cta:focus-visible {
+	color: #fe2a00 !important;
+	border-color: #fe2a00;
+}
+
+.site-header-cta:hover svg,
+.site-header-cta:focus-visible svg {
+	transform: translate(2px, -2px);
+}
+
+.site-header-divider {
+	width: 1px;
+	height: 1.7rem;
+	background: rgba(245, 245, 246, 0.2);
+}
+
+.site-menu-toggle {
+	position: relative;
+	display: grid;
+	place-items: center;
+	width: 3.2rem;
+	height: 3.2rem;
+	padding: 0;
+	border: 1px solid rgba(245, 245, 246, 0.2);
+	border-radius: 50%;
+	background: rgba(245, 245, 246, 0.04);
+	color: #f5f5f6;
+	cursor: pointer;
+	transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.site-menu-toggle:hover,
+.site-menu-toggle:focus-visible {
+	background: rgba(245, 245, 246, 0.12);
+	border-color: rgba(245, 245, 246, 0.4);
+}
+
+.site-header-cta:focus-visible,
+.site-menu-toggle:focus-visible {
+	outline: 2px solid #fe2a00;
+	outline-offset: 4px;
+}
+
+.site-menu-toggle-lines {
+	position: relative;
+	display: block;
+	width: 1.15rem;
+	height: 0.55rem;
+}
+
+/* Two lines that cross into an X while the menu is open. */
+.site-menu-toggle-lines span {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 1.5px;
+	border-radius: 2px;
+	background: currentColor;
+	transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), top 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.site-menu-toggle-lines span:first-child {
+	top: 0;
+}
+
+.site-menu-toggle-lines span:last-child {
+	top: calc(100% - 1.5px);
+}
+
+html.site-menu-open .site-menu-toggle-lines span {
+	top: calc(50% - 0.75px);
+}
+
+html.site-menu-open .site-menu-toggle-lines span:first-child {
+	transform: rotate(45deg);
+}
+
+html.site-menu-open .site-menu-toggle-lines span:last-child {
+	transform: rotate(-45deg);
+}
+
+/* While the menu is open the bar stays put and sits on the menu's backdrop.
+   The padding stands in for the scrollbar that disappears while the page is
+   locked, so the toggle doesn't jump under the cursor. */
+html.site-menu-open .semplice-navbar {
+	transform: none !important;
+	padding-right: var(--site-scrollbar, 0px) !important;
 	background-color: transparent !important;
 	-webkit-backdrop-filter: none;
 	backdrop-filter: none;
 	box-shadow: none;
+}
+
+html.site-menu-open,
+html.site-menu-open body {
+	overflow: hidden !important;
+}
+
+/* Phones: a smaller logo and toggle leave room for "Let's talk". */
+@media screen and (max-width: 543.98px) {
+	.semplice-navbar .logo img {
+		height: 28px !important;
+	}
+
+	.site-header-actions {
+		gap: 0.9rem;
+	}
+
+	.site-header-divider {
+		display: none;
+	}
+
+	.site-menu-toggle {
+		width: 2.8rem;
+		height: 2.8rem;
+	}
+}
+
+@media screen and (max-width: 389.98px) {
+	.semplice-navbar .logo img {
+		height: 25px !important;
+	}
+}
+
+@media screen and (max-width: 369.98px) {
+	.site-header-cta {
+		display: none;
+	}
+}
+
+/* ---- Menu ---------------------------------------------------------------- */
+
+.site-menu {
+	position: fixed;
+	inset: 0;
+	z-index: 119; /* under the navbar (120), over the back-to-top button (118) */
+	visibility: hidden;
+	pointer-events: none;
+	transition: visibility 0s linear 0.55s;
+}
+
+html.site-menu-open .site-menu {
+	visibility: visible;
+	pointer-events: auto;
+	transition-delay: 0s;
+}
+
+.site-menu-backdrop {
+	position: absolute;
+	inset: 0;
+	background: rgba(6, 6, 6, 0.72);
+	-webkit-backdrop-filter: blur(10px);
+	backdrop-filter: blur(10px);
+	opacity: 0;
+	transition: opacity 0.45s ease;
+}
+
+.site-menu-panel {
+	position: absolute;
+	top: var(--site-header-height, 5.5556rem);
+	right: 0;
+	bottom: 0;
+	left: 0;
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	border-top: 1px solid rgba(245, 245, 246, 0.08);
+	border-radius: 3em 3em 0 0;
+	background: rgba(22, 23, 26, 0.6);
+	-webkit-backdrop-filter: blur(32px) saturate(140%);
+	backdrop-filter: blur(32px) saturate(140%);
+	opacity: 0;
+	transform: translateY(3rem);
+	transition: opacity 0.35s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html.site-menu-open .site-menu-backdrop,
+html.site-menu-open .site-menu-panel {
+	opacity: 1;
+}
+
+html.site-menu-open .site-menu-panel {
+	transform: none;
+}
+
+.site-menu-inner {
+	display: grid;
+	grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr) minmax(0, 0.9fr) minmax(0, 0.9fr) minmax(0, 1.35fr);
+	gap: 0 2.6rem;
+	box-sizing: border-box;
+	min-height: 100%;
+	max-width: 120rem;
+	margin: 0 auto;
+	padding: 4.2rem 4.5rem 2rem;
+	color: #f5f5f6;
+	font-family: "PPMori-Regular", sans-serif;
+}
+
+/* Items rise in column by column when the menu opens, and fade out together. */
+.site-menu-reveal {
+	opacity: 0;
+	transform: translateY(1.1rem);
+	transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+html.site-menu-open .site-menu-reveal {
+	opacity: 1;
+	transform: none;
+	transition:
+		opacity 0.5s ease calc(0.12s + var(--i, 0) * 0.035s),
+		transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) calc(0.12s + var(--i, 0) * 0.035s);
+}
+
+.site-menu-intro {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding-right: 1rem;
+}
+
+.site-menu-kicker {
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+	margin: 0 0 2.2rem;
+	color: #fe2a00;
+	font-family: "PPMori-Medium", sans-serif;
+	font-size: 0.95rem;
+}
+
+.site-menu-kicker::before {
+	content: "";
+	width: 0.45rem;
+	height: 0.45rem;
+	border-radius: 50%;
+	background: currentColor;
+	box-shadow: 0 0 0 0.3rem rgba(254, 42, 0, 0.18);
+}
+
+.site-menu-title {
+	margin: 0;
+	color: #f5f5f6;
+	font-family: "PPMori-Medium", sans-serif;
+	font-size: clamp(2.1rem, 3.3vw, 3.3rem);
+	font-weight: 400;
+	line-height: 0.98;
+	letter-spacing: -0.035em;
+}
+
+.site-menu-rule {
+	width: 2.8rem;
+	height: 1px;
+	margin: 2.2rem 0 1.9rem;
+	background: rgba(245, 245, 246, 0.25);
+}
+
+.site-menu-email {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.65rem;
+	color: rgba(245, 245, 246, 0.7) !important;
+	font-size: 1rem;
+	text-decoration: none;
+	transition: color 0.25s ease;
+}
+
+.site-menu-email:hover,
+.site-menu-email:focus-visible {
+	color: #f5f5f6 !important;
+}
+
+.site-menu-button {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.8rem;
+	margin-top: auto;
+	padding: 1.05rem 1.9rem;
+	border-radius: 999px;
+	background: #f5f5f6;
+	color: #060606 !important;
+	font-family: "PPMori-Medium", sans-serif;
+	font-size: 0.85rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	text-decoration: none;
+	white-space: nowrap;
+	transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.site-menu-button svg {
+	transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.site-menu-button:hover,
+.site-menu-button:focus-visible {
+	background: #fe2a00;
+	color: #f5f5f6 !important;
+}
+
+.site-menu-button:hover svg,
+.site-menu-button:focus-visible svg {
+	transform: translate(2px, -2px);
+}
+
+.site-menu-heading {
+	margin: 0.3rem 0 1.9rem;
+	padding-bottom: 1.1rem;
+	border-bottom: 1px solid rgba(245, 245, 246, 0.12);
+	color: rgba(245, 245, 246, 0.72);
+	font-family: "PPMori-Medium", sans-serif;
+	font-size: 0.78rem;
+	font-weight: 400;
+	letter-spacing: 0.24em;
+	text-transform: uppercase;
+}
+
+.site-menu-list {
+	display: grid;
+	gap: 1.35rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.site-menu-list a {
+	position: relative;
+	display: inline-flex;
+	flex-wrap: wrap; /* a badge drops below its label rather than overflowing */
+	align-items: center;
+	gap: 0.35rem 0.6rem;
+	color: rgba(245, 245, 246, 0.62) !important;
+	font-size: 1.05rem;
+	line-height: 1.3;
+	text-decoration: none;
+	transition: color 0.25s ease;
+}
+
+/* Keep labels like "E-Commerce" from breaking at the hyphen next to a badge. */
+.site-menu-list a > span:first-child {
+	white-space: nowrap;
+}
+
+.site-menu-list a:hover,
+.site-menu-list a:focus-visible,
+.site-menu-list a[aria-current="page"] {
+	color: #f5f5f6 !important;
+}
+
+.site-menu-list a:focus-visible,
+.site-menu-email:focus-visible,
+.site-menu-button:focus-visible,
+.site-menu-footer a:focus-visible {
+	outline: 2px solid #fe2a00;
+	outline-offset: 4px;
+}
+
+.site-menu-list--nav {
+	gap: 1.55rem;
+}
+
+.site-menu-list--nav a {
+	font-family: "PPMori-Medium", sans-serif;
+	font-size: 1.35rem;
+}
+
+/* The current page gets the same red dot as the kicker. */
+.site-menu-list--nav a[aria-current="page"]::before {
+	content: "";
+	position: absolute;
+	left: -1.2rem;
+	width: 0.4rem;
+	height: 0.4rem;
+	border-radius: 50%;
+	background: #fe2a00;
+}
+
+.site-menu-list--nav a[aria-current="page"] {
+	margin-left: 1.2rem;
+}
+
+.site-menu-chevron {
+	opacity: 0.35;
+	transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.site-menu-list a:hover .site-menu-chevron,
+.site-menu-list a:focus-visible .site-menu-chevron {
+	opacity: 1;
+	transform: translateX(3px);
+}
+
+.site-menu-badge {
+	padding: 0.2rem 0.55rem;
+	border: 1px solid rgba(254, 42, 0, 0.55);
+	border-radius: 999px;
+	background: rgba(254, 42, 0, 0.12);
+	color: #ff6a47;
+	font-family: "PPMori-Medium", sans-serif;
+	font-size: 0.58rem;
+	letter-spacing: 0.06em;
+	line-height: 1.4;
+	text-transform: uppercase;
+}
+
+.site-menu-footer {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem 2rem;
+	grid-column: 1 / -1;
+	margin-top: 3.2rem;
+	padding-top: 1.4rem;
+	border-top: 1px solid rgba(245, 245, 246, 0.1);
+	color: rgba(245, 245, 246, 0.45);
+	font-size: 0.8rem;
+}
+
+.site-menu-socials {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.6rem 1.8rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.site-menu-footer a {
+	color: rgba(245, 245, 246, 0.6) !important;
+	text-decoration: none;
+	transition: color 0.25s ease;
+}
+
+.site-menu-footer a:hover,
+.site-menu-footer a:focus-visible {
+	color: #fe2a00 !important;
+}
+
+/* Smaller desktops: tighter columns so labels and badges stay on one line. */
+@media screen and (min-width: 1170px) and (max-width: 1799.98px) {
+	.site-menu-inner {
+		grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr) minmax(0, 0.95fr) minmax(0, 0.8fr) minmax(0, 1.5fr);
+		gap: 0 1.8rem;
+		padding: 3.6rem 3rem 1.8rem;
+	}
+
+	.site-menu-title {
+		font-size: clamp(2.1rem, 2.9vw, 3.3rem);
+	}
+
+	.site-menu-list a {
+		font-size: 0.95rem;
+	}
+
+	.site-menu-list--nav a {
+		font-size: 1.3rem;
+	}
+
+	.site-menu-button {
+		padding: 1rem 1.6rem;
+	}
+}
+
+/* Tablet: intro across the top, link columns in pairs below. */
+@media screen and (max-width: 1169.98px) {
+	.site-menu-inner {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 3rem 2.6rem;
+		padding: 3.2rem 2.4rem 2rem;
+	}
+
+	.site-menu-intro {
+		grid-column: 1 / -1;
+		display: grid;
+		grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+		align-items: end;
+		gap: 0 2rem;
+		padding-right: 0;
+	}
+
+	.site-menu-kicker,
+	.site-menu-title {
+		grid-column: 1;
+	}
+
+	.site-menu-rule {
+		display: none;
+	}
+
+	.site-menu-email,
+	.site-menu-button {
+		grid-column: 2;
+		justify-self: start;
+	}
+
+	.site-menu-email {
+		grid-row: 1;
+		align-self: end;
+	}
+
+	.site-menu-button {
+		grid-row: 2;
+		margin-top: 1.2rem;
+	}
+
+	.site-menu-footer {
+		margin-top: 0.5rem;
+	}
+}
+
+/* Phone: one column, navigation first, contact details last. */
+@media screen and (max-width: 767.98px) {
+	.site-menu-panel {
+		border-radius: 2em 2em 0 0;
+	}
+
+	.site-menu-inner {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 2.6rem;
+		padding: 2.4rem 1.6rem 2rem;
+	}
+
+	.site-menu-intro {
+		order: 1;
+		display: flex;
+	}
+
+	.site-menu-title {
+		font-size: 2rem;
+	}
+
+	.site-menu-rule {
+		display: block;
+		margin: 1.6rem 0 1.4rem;
+	}
+
+	.site-menu-button {
+		margin-top: 1.8rem;
+	}
+
+	.site-menu-heading {
+		margin-bottom: 1.3rem;
+	}
+
+	.site-menu-list {
+		gap: 1.05rem;
+	}
+
+	.site-menu-list--nav a {
+		font-size: 1.6rem;
+	}
+
+	.site-menu-footer {
+		order: 2;
+		margin-top: 0;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.site-menu-panel,
+	.site-menu-reveal,
+	html.site-menu-open .site-menu-reveal {
+		transform: none !important;
+		transition-duration: 0.01s !important;
+		transition-delay: 0s !important;
+	}
 }
 
 /* ---- Sticky section headings -------------------------------------------- */
