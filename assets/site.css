@@ -1,0 +1,49 @@
+/* Codilated site-wide overrides. Loaded last on every page so it wins over the
+   theme's inline styles. Versioned via ?v= because /assets/* is cached immutably. */
+
+/* ---- Header -------------------------------------------------------------- */
+
+/* The theme blends the navbar with `exclusion`, which recolours the logo and
+   links over light or blue sections. Keep the real brand colours instead. */
+html body .semplice-navbar {
+	mix-blend-mode: normal !important;
+}
+
+/* Headroom already hides the bar on scroll down and pins it on scroll up;
+   ease that movement and fade the glass in and out. */
+html .semplice-navbar.headroom {
+	transition:
+		transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+		background-color 0.35s ease,
+		box-shadow 0.35s ease,
+		-webkit-backdrop-filter 0.35s ease,
+		backdrop-filter 0.35s ease;
+}
+
+/* Frosted glass whenever the bar is shown away from the very top. */
+html .semplice-navbar.headroom--not-top {
+	background-color: rgba(6, 6, 6, 0.62) !important;
+	-webkit-backdrop-filter: blur(20px) saturate(160%);
+	backdrop-filter: blur(20px) saturate(160%);
+	box-shadow: inset 0 -1px 0 rgba(245, 245, 246, 0.08);
+}
+
+/* The full-screen mobile menu has its own backdrop. */
+html body.open-menu .semplice-navbar {
+	background-color: transparent !important;
+	-webkit-backdrop-filter: none;
+	backdrop-filter: none;
+	box-shadow: none;
+}
+
+/* ---- Sticky section headings -------------------------------------------- */
+
+/* The first column's heading stays in view while the second column scrolls.
+   Only when the columns sit side by side. */
+@media screen and (min-width: 768px) {
+	#content-holder .sticky-heading > .container > .row > .column:first-child > .content-wrapper {
+		position: sticky;
+		top: 8rem;
+		align-self: flex-start;
+	}
+}
