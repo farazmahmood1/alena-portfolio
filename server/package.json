@@ -1,0 +1,30 @@
+{
+  "name": "codilated-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Contact form API for codilated.com (Express + MongoDB)",
+  "type": "module",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch --env-file-if-exists=.env src/server.js",
+    "test": "node --test",
+    "lint": "node --check src/app.js && node --check src/config.js && node --check src/contact.schema.js && node --check src/lead.model.js && node --check src/mailer.js && node --check src/server.js && node --check test/contact.test.js && node --check test/mongo.integration.test.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "mongoose": "^8.9.5",
+    "nodemailer": "^6.9.16",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "mongodb-memory-server": "^10.4.3"
+  }
+}
