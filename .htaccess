@@ -4,6 +4,7 @@
 Options -MultiViews
 RewriteEngine On
 
+
 # 0. Short paths used in the brand brief and in listings → the live pages (existing URLs stay canonical)
 RewriteRule ^about-us/?$ /about [R=301,L]
 RewriteRule ^contact-us/?$ /contact [R=301,L]
