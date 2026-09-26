@@ -4,6 +4,15 @@
 Options -MultiViews
 RewriteEngine On
 
+# 0. Short paths used in the brand brief and in listings → the live pages (existing URLs stay canonical)
+RewriteRule ^about-us/?$ /about [R=301,L]
+RewriteRule ^contact-us/?$ /contact [R=301,L]
+RewriteRule ^branding/?$ /services/branding-design [R=301,L]
+RewriteRule ^shopify-brand-development/?$ /services/shopify-ecommerce [R=301,L]
+RewriteRule ^custom-website-app-development/?$ /services/web-development [R=301,L]
+RewriteRule ^ai-automation/?$ /services/ai-automation [R=301,L]
+RewriteRule ^work/?$ /portfolio/ [R=301,L]
+
 # 1. Redirect any explicit .html request to the clean URL (301, preserves query string)
 RewriteCond %{THE_REQUEST} \s/+(.*?)\.html[\s?] [NC]
 RewriteRule ^ /%1 [R=301,L,NE]
@@ -18,6 +27,20 @@ RewriteCond %{REQUEST_FILENAME}\.html -f
 RewriteRule ^(.+?)/?$ $1.html [L]
 
 ErrorDocument 404 /404.html
+
+# Plain-text and XML files crawlers read (robots.txt, llms.txt, sitemap.xml)
+AddType "text/plain; charset=utf-8" .txt
+AddType "application/xml; charset=utf-8" .xml
+
+# Deploy-time settings must reach browsers as soon as they change
+<Files "site-config.js">
+  <IfModule mod_headers.c>
+    Header set Cache-Control "no-cache"
+  </IfModule>
+  <IfModule mod_expires.c>
+    ExpiresActive Off
+  </IfModule>
+</Files>
 
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml

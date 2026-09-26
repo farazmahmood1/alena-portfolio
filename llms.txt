@@ -1,0 +1,17 @@
+# Codilated
+
+> Codilated is an AI-first Shopify brand-building and software agency working with brands worldwide, with a special focus on the UAE, the USA and Pakistan. We take e-commerce brands from idea to first sales and build custom software, apps and AI automations that help them scale.
+
+All projects are custom-quoted after a free consultation; Codilated does not publish prices.
+
+## Services
+- [Branding & Brand Identity](https://codilated.com/services/branding-design): brand strategy, bilingual Arabic-English logos, visual identity, brand books and packaging
+- [Shopify Brand Development](https://codilated.com/services/shopify-ecommerce): Shopify brands from scratch to sales, Arabic storefronts, Tabby and Tamara, migrations, CRO, Shopify Plus
+- [Custom Website & App Development](https://codilated.com/services/web-development): websites, web apps, iOS and Android apps, SaaS, custom Shopify apps
+- [AI Automation](https://codilated.com/services/ai-automation): AI agents, WhatsApp and web chatbots, voice agents, workflow automation
+
+## Company
+- [About](https://codilated.com/about)
+- [Work](https://codilated.com/portfolio/)
+- [Blog](https://codilated.com/blog/)
+- [Contact](https://codilated.com/contact): info@codilated.com

@@ -6,6 +6,42 @@
 [build.processing]
   skip_processing = false
 
+# Short paths used in the brand brief → the live pages (existing URLs stay canonical).
+[[redirects]]
+  from = "/about-us"
+  to = "/about"
+  status = 301
+
+[[redirects]]
+  from = "/contact-us"
+  to = "/contact"
+  status = 301
+
+[[redirects]]
+  from = "/branding"
+  to = "/services/branding-design"
+  status = 301
+
+[[redirects]]
+  from = "/shopify-brand-development"
+  to = "/services/shopify-ecommerce"
+  status = 301
+
+[[redirects]]
+  from = "/custom-website-app-development"
+  to = "/services/web-development"
+  status = 301
+
+[[redirects]]
+  from = "/ai-automation"
+  to = "/services/ai-automation"
+  status = 301
+
+[[redirects]]
+  from = "/work"
+  to = "/portfolio/"
+  status = 301
+
 [[redirects]]
   from = "/*.html"
   to = "/:splat"
@@ -21,3 +57,13 @@
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/site-config.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/llms.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
