@@ -3,7 +3,7 @@
   <defs>
     <style>.p,.q,.r,.s,.t,.u,.v{fill:none;}.w{fill:url(#k);}.x{fill:url(#j);}.y{fill:url(#i);}.z{fill:url(#m);}.aa{fill:url(#n);}.ab{fill:url(#l);}.q{stroke:url(#o);}.q,.r,.s,.t,.u,.v{stroke-linecap:round;stroke-miterlimit:10;stroke-width:3px;}.r{stroke:url(#h);}.s{stroke:url(#f);}.t{stroke:url(#g);}.u{stroke:url(#d);}.v{stroke:url(#e);}</style>
     <linearGradient id="d" x1="299.601" y1="544.216" x2="353.055" y2="544.216" gradientTransform="translate(-60.638 -457.386) rotate(133.263) scale(1 -1)" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#fe2a00"></stop>
+      <stop offset="0" stop-color="#EF3F3E"></stop>
       <stop offset="1" stop-color="#0e36e6"></stop>
     </linearGradient>
     <linearGradient id="e" x1="-248.833" y1="314.968" x2="-221.193" y2="314.968" gradientTransform="translate(430.856 -25.015) rotate(-69.113) scale(1 -1)" xlink:href="#d"></linearGradient>

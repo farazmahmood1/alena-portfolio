@@ -19,7 +19,7 @@ const FIELDS = [
 export function formatLeadEmail(lead) {
 	const rows = FIELDS.map(([label, get]) => [label, get(lead)]).filter(([, v]) => v);
 	return {
-		subject: `New enquiry: ${lead.fullName}${lead.projectType ? ` — ${lead.projectType}` : ''}`,
+		subject: `New enquiry: ${lead.fullName}${lead.projectType ? ` | ${lead.projectType}` : ''}`,
 		text: rows.map(([k, v]) => `${k}: ${v}`).join('\n'),
 		html: `<table cellpadding="6" style="border-collapse:collapse;font-family:sans-serif;font-size:14px">${rows
 			.map(([k, v]) => `<tr><th align="left" valign="top">${escapeHtml(k)}</th><td style="white-space:pre-wrap">${escapeHtml(v)}</td></tr>`)

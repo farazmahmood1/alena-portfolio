@@ -54,7 +54,7 @@ Every change is a text replacement inside an existing element. Scripted replacem
 - Footer:
   - Services column (5 slots): the first 5 of the 8 brief items.
   - Company column (5 slots): About Codilated · How We Work · Work · Blog · Contact.
-  - Bottom-left contact block (4 lines): Codilated LLC, St. Petersburg, Florida, USA / Registered address … / email / phone (call or WhatsApp).
+  - Bottom-left contact block (4 lines): Codilated LLC, St. Petersburg, Florida, USA / Registered address … / email / phone.
   - Year line: © 2026 Codilated LLC., kept current by `site.js`. `All rights reserved.`
   - Social links: LinkedIn and Instagram already correct. GitHub and X are reported, not removed.
   - Also add the missing `href`s on the home footer links (they only had `data-mce-href`).

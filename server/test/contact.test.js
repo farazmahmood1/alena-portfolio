@@ -145,7 +145,7 @@ test('health endpoint and unknown API routes', async () => {
 
 test('notification email lists every submitted field and escapes HTML', () => {
 	const mail = formatLeadEmail({ ...valid, fullName: '<b>Jordan</b>', phone: '+1 555', createdAt: new Date('2026-09-26T10:00:00Z') });
-	assert.match(mail.subject, /New enquiry: <b>Jordan<\/b> — Website/);
+	assert.match(mail.subject, /New enquiry: <b>Jordan<\/b> \| Website/);
 	for (const v of ['jordan@example.com', '+1 555', 'Website', 'As soon as possible', 'Video-Call', 'skincare', 'source=google, medium=cpc', 'https://codilated.com/contact']) {
 		assert.ok(mail.text.includes(v), `text includes ${v}`);
 	}

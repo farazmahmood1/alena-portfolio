@@ -397,7 +397,7 @@
 	var FORM_TEXT = {
 		required: 'This field is required',
 		email: 'Please enter a valid email address',
-		success: 'Thanks — your brief is with our team. Expect a reply within one business day. Want to move faster? Message us on WhatsApp at <a href="' + WHATSAPP_URL + '" target="_blank" rel="noopener">+1 (805) 251-9188</a>.',
+		success: 'Thank you. Your brief is with our team. Expect a reply within one business day. Want to move faster? Message us on WhatsApp at <a href="' + WHATSAPP_URL + '" target="_blank" rel="noopener">+1 (805) 251-9188</a>.',
 		error: 'Your brief wasn’t sent. Check the highlighted fields and try again, or email <a href="mailto:info@codilated.com">info@codilated.com</a>.',
 		tooMany: 'Too many attempts in a short time. Please wait a few minutes and try again, or email <a href="mailto:info@codilated.com">info@codilated.com</a>.'
 	};
