@@ -380,19 +380,14 @@
 	/* ---- Contact form ------------------------------------------------------
 	   The enquiry form is the theme's three-step Quform, originally posted to a
 	   WordPress endpoint that no longer exists. Steps are now validated in the
-	   browser, and the last step posts JSON to the Codilated API. Quform's own
+	   browser, and the last step sends the enquiry through EmailJS when
+	   CONFIG.emailjs is set, otherwise posts JSON to the Codilated API. Quform's own
 	   error, loading and success components show the result, so nothing on the
 	   page looks different. */
 	var FORM_FIELDS = {
-		projectType: '4_59',
-		timeline: '4_65',
-		callPreference: '4_66',
-		salutation: '4_23',
 		fullName: '4_14',
 		email: '4_38',
-		phone: '4_67',
-		message: '4_81',
-		privacyAccepted: '4_131'
+		message: '4_81'
 	};
 	var FORM_TEXT = {
 		required: 'This field is required',
@@ -419,6 +414,8 @@
 		var form = document.querySelector('form.quform-form-4');
 		if (!form || !window.Quform || !window.Quform.prototype) return;
 		var apiUrl = (CONFIG.apiBase || '').replace(/\/+$/, '') + '/api/contact';
+		var emailjs = CONFIG.emailjs || {};
+		var useEmailJs = !!(emailjs.serviceId && emailjs.templateId && emailjs.publicKey);
 		var originalSubmit = window.Quform.prototype.submit;
 
 		function element(id) { return form.querySelector('.quform-element-' + id); }
@@ -455,13 +452,49 @@
 				var v = value(FORM_FIELDS[key]);
 				if (v !== '') data[key] = v;
 			});
-			data.privacyAccepted = value(FORM_FIELDS.privacyAccepted) === true;
 			var honeypot = form.querySelector('[name="quform_4_0"]');
 			data.hp = honeypot ? honeypot.value : '';
 			data.sourcePage = location.href.split('#')[0].slice(0, 500);
 			if (document.referrer) data.referrer = document.referrer.slice(0, 500);
 			if (Object.keys(utm).length) data.utm = utm;
 			return data;
+		}
+
+		// Both senders resolve to { status, body } with body.ok set on success.
+		function sendToApi(data) {
+			return fetch(apiUrl, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(data)
+			}).then(function (res) {
+				return res.json().catch(function () { return {}; }).then(function (body) { return { status: res.status, body: body }; });
+			});
+		}
+
+		// EmailJS REST API. The variable names below are the {{placeholders}} the
+		// EmailJS template uses; empty fields are sent as "-" so the email never
+		// shows a bare label.
+		function sendWithEmailJs(data) {
+			if (data.hp) return Promise.resolve({ status: 200, body: { ok: true } }); // bot: pretend it worked
+			var utm = data.utm || {};
+			var params = {
+				name: data.fullName,
+				email: data.email,
+				message: data.message,
+				source_page: data.sourcePage,
+				referrer: data.referrer,
+				utm: Object.keys(utm).map(function (k) { return k + '=' + utm[k]; }).join(', '),
+				// dateStyle/timeStyle can't be combined with timeZoneName (throws), so spell the parts out.
+				submitted_at: new Date().toLocaleString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' })
+			};
+			Object.keys(params).forEach(function (k) { if (!params[k]) params[k] = '-'; });
+			return fetch('https://api.emailjs.com/api/v1.0/email/send', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ service_id: emailjs.serviceId, template_id: emailjs.templateId, user_id: emailjs.publicKey, template_params: params })
+			}).then(function (res) {
+				return { status: res.status, body: { ok: res.ok } };
+			});
 		}
 
 		function serverErrors(errors) {
@@ -509,15 +542,10 @@
 
 			quform.submitted = true;
 			quform.$loading.fadeIn().addClass('quform-loading-triggered');
-			fetch(apiUrl, {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(payload())
-			}).then(function (res) {
-				return res.json().catch(function () { return {}; }).then(function (body) { return { status: res.status, body: body }; });
-			}).then(function (result) {
+			(useEmailJs ? sendWithEmailJs(payload()) : sendToApi(payload())).then(function (result) {
 				if (result.status >= 200 && result.status < 300 && result.body.ok) {
 					track('generate_lead', { form_id: 'contact', page_path: location.pathname });
+					if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
 					quform.responseSuccess({ type: 'message', message: FORM_TEXT.success, messagePosition: 'above', messageTimeout: 0, resetForm: '', hideForm: false });
 					quform.goToPage(pages[0]);
 					return;

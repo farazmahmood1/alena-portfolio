@@ -11,6 +11,8 @@
 # baked into assets/site-config.js before upload:
 #   VITE_GA_MEASUREMENT_ID  GA4 ID (G-XXXXXXX); unset = no analytics
 #   API_BASE                public origin of the contact API (see server/README.md)
+#   EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_PUBLIC_KEY
+#                           contact-form EmailJS settings; unset = defaults in the script
 #
 # The contact API in server/ is not uploaded here — FTP hosting can't run Node.
 name: Deploy to Hostinger
@@ -40,6 +42,9 @@ jobs:
         env:
           VITE_GA_MEASUREMENT_ID: ${{ vars.VITE_GA_MEASUREMENT_ID }}
           API_BASE: ${{ vars.API_BASE }}
+          EMAILJS_SERVICE_ID: ${{ vars.EMAILJS_SERVICE_ID }}
+          EMAILJS_TEMPLATE_ID: ${{ vars.EMAILJS_TEMPLATE_ID }}
+          EMAILJS_PUBLIC_KEY: ${{ vars.EMAILJS_PUBLIC_KEY }}
         run: node scripts/write-site-config.mjs
 
       - name: Generate sitemap.xml

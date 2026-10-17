@@ -8,7 +8,14 @@ import { fileURLToPath } from 'node:url';
 const env = process.env;
 const config = {
 	gaMeasurementId: (env.GA_MEASUREMENT_ID || env.VITE_GA_MEASUREMENT_ID || '').trim(),
-	apiBase: (env.API_BASE || '').trim().replace(/\/+$/, '')
+	apiBase: (env.API_BASE || '').trim().replace(/\/+$/, ''),
+	// EmailJS sends the contact form when all three are set. These are public
+	// values (they ship to every visitor); never put the EmailJS private key here.
+	emailjs: {
+		serviceId: (env.EMAILJS_SERVICE_ID || 'service_dgbzo5v').trim(),
+		templateId: (env.EMAILJS_TEMPLATE_ID || 'template_i40g71k').trim(),
+		publicKey: (env.EMAILJS_PUBLIC_KEY || 'DZWLN5Uv8Op74u9FK').trim()
+	}
 };
 
 if (config.gaMeasurementId && !/^G-[A-Z0-9]+$/i.test(config.gaMeasurementId)) {

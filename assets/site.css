@@ -638,3 +638,38 @@ html.site-menu-open .site-menu-reveal {
 		align-self: flex-start;
 	}
 }
+
+/* ---- Footer logo (sits above the address lines) ---- */
+.site-footer-logo {
+	display: inline-block;
+	margin-bottom: 1.25rem;
+}
+
+.site-footer-logo img {
+	display: block;
+	height: 40px;
+	width: auto;
+}
+
+/* Contact form: single step, so the submit button sits alone; keep its label on one line. */
+.quform-4 .quform-button-submit,
+.quform-4 .quform-button-submit button {
+	width: auto;
+	white-space: nowrap;
+}
+
+/* Contact form: full name and email share a row on wider screens. The two
+   elements are adjacent with no whitespace between them, so inline-block
+   leaves no stray gap. */
+@media (min-width: 640px) {
+	.quform-4 .quform-element-4_14,
+	.quform-4 .quform-element-4_38 {
+		display: inline-block;
+		vertical-align: top;
+		width: calc(50% - 0.5rem);
+	}
+
+	.quform-4 .quform-element-4_14 {
+		margin-right: 1rem;
+	}
+}
